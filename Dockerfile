@@ -8,15 +8,15 @@ RUN apt-get update && \
 
 ADD run.sh /run.sh
 RUN chmod 755 /*.sh
-
+RUN mkdir /var/run/sshd
 ADD supervisord-sshd.conf /etc/supervisor/conf.d/supervisord-sshd.conf
 
 
-# use local file on host machine for www
-VOLUME [ "/var/www/html", "/pclocal" ]
+#  folder to attach to
+VOLUME [  "/pclocal" ]
 
-## expose web ports, and mailcatcher ports
-EXPOSE 80 443 
+##  expose ssh port
+EXPOSE 22
 
 
 CMD ["/run.sh"]
